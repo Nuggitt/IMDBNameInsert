@@ -8,11 +8,11 @@ namespace IMDBNameInsert.Models
 {
     public class Person
     {
-        public string nconst { get; set; }
-        public string? primaryName { get; set; }
-        public int? birthYear { get; set; }
-        public int? deathYear { get; set; }
-        public string? primaryProfession { get; set; }
-        public string? knownForTitles { get; set; }
+        public string Nconst { get; set; }
+        public string? PrimaryName { get; set; }
+        public int? BirthYear { get; set; }
+        public int? DeathYear { get; set; }
+        public string? PrimaryProfession { get; set; }
+        public string? KnownForTitles { get; set; }
     }
 }

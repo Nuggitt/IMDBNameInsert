@@ -8,6 +8,9 @@ IInserter inserter;
 Console.WriteLine("tast 1 for Persons, \r\n Tast 2 for Profession, \r\n Tast 3 for PersonProfession, \r\n Tast 4 for PersonTitles");
 
 string input = Console.ReadLine();
+SqlConnection sqlConn = new SqlConnection("server=localhost;database=IMDB;" +
+    "user id=sa;password=Holger1208!;TrustServerCertificate=True");
+sqlConn.Open();
 
 switch (input)
 {
@@ -18,7 +21,7 @@ switch (input)
         inserter = new BulkProfessionInserter();
         break;
     case "3":
-        inserter = new BulkPersonProfessionInserter();
+        inserter = new BulkPersonProfessionInserter(sqlConn);
         break;
     case "4":
         inserter = new BulkPersonTitlesInserter();
@@ -32,7 +35,7 @@ List<Person> persons = new List<Person>();
 string filepath = "C:/IMDBData/name.basics.tsv";
 foreach (string line in File.ReadLines(filepath).Skip(1)) // Skip header row
 {
-    if (lineCount == 14000000)
+    if (lineCount == 50000)
     {
         break;
     }
@@ -59,12 +62,12 @@ foreach (string line in File.ReadLines(filepath).Skip(1)) // Skip header row
     // Create and add a new Person object
     Person newPerson = new Person
     {
-        nconst = nconst,
-        primaryName = primaryName,
-        birthYear = birthYear,
-        deathYear = deathYear,
-        primaryProfession = primaryProfession,
-        knownForTitles = knownForTitles
+        Nconst = nconst,
+        PrimaryName = primaryName,
+        BirthYear = birthYear,
+        DeathYear = deathYear,
+        PrimaryProfession = primaryProfession,
+        KnownForTitles = knownForTitles
     };
 
     persons.Add(newPerson);
@@ -74,10 +77,9 @@ foreach (string line in File.ReadLines(filepath).Skip(1)) // Skip header row
 
 Console.WriteLine("List of person length: " + persons.Count);
 
-SqlConnection sqlConn = new SqlConnection("server=localhost;database=IMDB;" +
-    "user id=sa;password=Holger1208!;TrustServerCertificate=True");
 
-sqlConn.Open();
+
+
 
 SqlTransaction sqlTransaction = sqlConn.BeginTransaction();
 
@@ -85,7 +87,7 @@ DateTime before = DateTime.Now;
 
 try
 {
-    inserter.Insert(persons, sqlConn, sqlTransaction);
+    inserter.Insert(persons, sqlConn, sqlTransaction, null);
     sqlTransaction.Commit();
 }
 catch (SqlException ex)

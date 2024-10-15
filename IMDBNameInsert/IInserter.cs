@@ -10,6 +10,8 @@ namespace IMDBNameInsert
 {
     public interface IInserter
     {
-        void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction);
+       
+
+        void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction, object? table);
     }
 }

@@ -10,22 +10,22 @@ namespace IMDBNameInsert
 {
     public class BulkPersonTitlesInserter : IInserter
     {
-        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction)
+        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction, object? table)
         {
             DataTable personTitleTable = new DataTable();
-            personTitleTable.Columns.Add(new DataColumn("nconst", typeof(string))); // Ensure type matches your DB
-            personTitleTable.Columns.Add(new DataColumn("tconst", typeof(string))); // Ensure type matches your DB
+            personTitleTable.Columns.Add(new DataColumn("Nconst", typeof(string))); // Ensure type matches your DB
+            personTitleTable.Columns.Add(new DataColumn("Tconst", typeof(string))); // Ensure type matches your DB
 
             int batchSize = 10000; // Number of records to insert at a time
             int totalRecords = 0; // Track total records processed
 
             for (int i = 0; i < persons.Count; i++)
             {
-                foreach (string title in persons[i].knownForTitles.Split(','))
+                foreach (string title in persons[i].KnownForTitles.Split(','))
                 {
                     DataRow row = personTitleTable.NewRow();
-                    FillParameter(row, "tconst", title);
-                    FillParameter(row, "nconst", persons[i].nconst);
+                    FillParameter(row, "Tconst", title);
+                    FillParameter(row, "Nconst", persons[i].Nconst);
                     personTitleTable.Rows.Add(row);
                 }
 

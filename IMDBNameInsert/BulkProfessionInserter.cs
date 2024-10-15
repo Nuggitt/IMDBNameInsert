@@ -11,32 +11,33 @@ namespace IMDBNameInsert
 {
     public class BulkProfessionInserter : IInserter
     {
-        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction)
+        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction, object? table)
         {
             DataTable professionTable = new DataTable();
 
-            DataColumn professionID = new DataColumn("professionID", typeof(int));
-            DataColumn primaryProfession = new DataColumn("primaryProfession", typeof(string));
+            DataColumn professionID = new DataColumn("ProfessionID", typeof(int));
+            DataColumn primaryProfession = new DataColumn("Profession", typeof(string));
 
             professionTable.Columns.Add(professionID);
             professionTable.Columns.Add(primaryProfession);
 
-            HashSet <string> uniqueprofessions = new HashSet<string>();
+            HashSet<string> uniqueprofessions = new HashSet<string>();
             int professionsIdCounter = 1;
 
-            foreach(Person person in persons)
-            {
-                if (!string.IsNullOrWhiteSpace(person.primaryProfession))
-                {
-                    string[] professions = person.primaryProfession.Split(',');
 
-                    foreach(string profession in professions.Select(p => p.Trim()).Distinct())
+            foreach (Person person in persons)
+            {
+                if (!string.IsNullOrWhiteSpace(person.PrimaryProfession))
+                {
+                    string[] professions = person.PrimaryProfession.Split(',');
+
+                    foreach (string profession in professions.Select(p => p.Trim()).Distinct())
                     {
                         if (!uniqueprofessions.Contains(profession))
                         {
                             DataRow row = professionTable.NewRow();
-                            row["professionID"] = professionsIdCounter++;
-                            row["primaryProfession"] = profession;
+                            row["ProfessionID"] = professionsIdCounter++;
+                            row["Profession"] = profession;
                             professionTable.Rows.Add(row);
                             uniqueprofessions.Add(profession);
 

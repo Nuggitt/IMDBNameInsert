@@ -11,7 +11,7 @@ namespace IMDBNameInsert
 {
     public class BulkNameInserter : IInserter
     {
-        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction)
+        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction, object? table)
         {
             DataTable personTable = new DataTable();
 
@@ -28,10 +28,10 @@ namespace IMDBNameInsert
             foreach(Person person in persons)
             {
                 DataRow row = personTable.NewRow();
-                FillParameter(row, "nconst", person.nconst);
-                FillParameter(row, "primaryName", person.primaryName);
-                FillParameter(row, "birthYear", person.birthYear);
-                FillParameter(row, "deathYear", person.deathYear);
+                FillParameter(row, "nconst", person.Nconst);
+                FillParameter(row, "primaryName", person.PrimaryName);
+                FillParameter(row, "birthYear", person.BirthYear);
+                FillParameter(row, "deathYear", person.DeathYear);
                 personTable.Rows.Add(row);
             }
 
