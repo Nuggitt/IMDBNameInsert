@@ -55,6 +55,7 @@ foreach (string line in File.ReadLines(filepath).Skip(1)) // Skip header row
     string primaryProfession = splitline.Length > 4 ? splitline[4] : null;
     string knownForTitles = splitline.Length > 5 ? splitline[5] : null;
 
+
     // Create and add a new Person object
     Person newPerson = new Person
     {
