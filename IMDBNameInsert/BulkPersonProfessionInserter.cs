@@ -43,7 +43,7 @@ namespace IMDBNameInsert
             return professionMap.TryGetValue(professionName, out int professionId) ? professionId : -1;
         }
 
-        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction, object? table)
+        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction)
         {
             DataTable personProfessionTable = new DataTable();
 

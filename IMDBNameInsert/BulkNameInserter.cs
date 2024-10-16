@@ -11,7 +11,7 @@ namespace IMDBNameInsert
 {
     public class BulkNameInserter : IInserter
     {
-        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction, object? table)
+        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction)
         {
             DataTable personTable = new DataTable();
 

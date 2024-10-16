@@ -10,7 +10,7 @@ namespace IMDBNameInsert
 {
     public class BulkPersonTitlesInserter : IInserter
     {
-        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction, object? table)
+        public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction)
         {
             DataTable personTitleTable = new DataTable();
             personTitleTable.Columns.Add(new DataColumn("Nconst", typeof(string))); // Ensure type matches your DB

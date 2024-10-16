@@ -87,7 +87,7 @@ DateTime before = DateTime.Now;
 
 try
 {
-    inserter.Insert(persons, sqlConn, sqlTransaction, null);
+    inserter.Insert(persons, sqlConn, sqlTransaction);
     sqlTransaction.Commit();
 }
 catch (SqlException ex)

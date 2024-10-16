@@ -12,6 +12,6 @@ namespace IMDBNameInsert
     {
        
 
-        void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction, object? table);
+        void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction);
     }
 }
