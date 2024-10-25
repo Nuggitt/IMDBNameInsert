@@ -9,7 +9,7 @@ Console.WriteLine("tast 1 for Persons, \r\n Tast 2 for Profession, \r\n Tast 3 f
 
 string input = Console.ReadLine();
 SqlConnection sqlConn = new SqlConnection("server=localhost;database=IMDB;" +
-    "user id=sa;password=Holger1208!;TrustServerCertificate=True");
+    "user id=sa;password=EnterYourPassWordHere!;TrustServerCertificate=True");
 sqlConn.Open();
 
 switch (input)
@@ -33,7 +33,7 @@ switch (input)
 int lineCount = 0;
 List<Person> persons = new List<Person>();
 string filepath = "C:/IMDBData/name.basics.tsv";
-foreach (string line in File.ReadLines(filepath).Skip(1)) // Skip header row
+foreach (string line in File.ReadLines(filepath).Skip(1)) 
 {
     if (lineCount == 50000)
     {
@@ -42,24 +42,24 @@ foreach (string line in File.ReadLines(filepath).Skip(1)) // Skip header row
 
     string[] splitline = line.Split('\t');
 
-    // Ensure the line has at least 4 columns
+    
     if (splitline.Length < 4)
     {
         throw new Exception("Invalid line: " + line);
     }
 
-    // Now safely access the first four fields
+    
     string nconst = splitline[0];
     string primaryName = splitline[1];
-    int? birthYear = ParseInt(splitline[2]);  // Handle possible null values
-    int? deathYear = ParseInt(splitline[3]);  // Handle possible null values
+    int? birthYear = ParseInt(splitline[2]);  
+    int? deathYear = ParseInt(splitline[3]);  
 
-    // Check for primaryProfession and knownForTitles only if present
+    
     string primaryProfession = splitline.Length > 4 ? splitline[4] : null;
     string knownForTitles = splitline.Length > 5 ? splitline[5] : null;
 
 
-    // Create and add a new Person object
+    
     Person newPerson = new Person
     {
         Nconst = nconst,
@@ -104,7 +104,7 @@ Console.WriteLine("milliseconds passed " + (after - before).TotalMilliseconds);
 
 int? ParseInt(string value)
 {
-    if (value.ToLower() == "\\n") // checks if it is \n
+    if (value.ToLower() == "\\n") 
     {
         return null;
     }
@@ -115,7 +115,7 @@ int? ParseInt(string value)
     }
     else
     {
-        // Handle the case where the value is not a valid integer
+        
         return null;
     }
 }

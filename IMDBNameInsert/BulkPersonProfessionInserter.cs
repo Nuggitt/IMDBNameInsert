@@ -13,7 +13,7 @@ namespace IMDBNameInsert
 
         public BulkPersonProfessionInserter(SqlConnection sqlConn)
         {
-            // Load profession names and their IDs into the dictionary
+            
             professionMap = LoadProfessions(sqlConn);
         }
 
@@ -39,7 +39,7 @@ namespace IMDBNameInsert
 
         private int GetProfessionIdByName(string professionName)
         {
-            // Retrieve the profession ID from the dictionary
+            
             return professionMap.TryGetValue(professionName, out int professionId) ? professionId : -1;
         }
 
@@ -60,10 +60,10 @@ namespace IMDBNameInsert
                     DataRow row = personProfessionTable.NewRow();
                     FillParameter(row, "Nconst", person.Nconst);
 
-                    // Get the professionID for the current profession
+                    
                     int professionId = GetProfessionIdByName(profession);
 
-                    // Now assign the professionId instead of the profession name
+                    
                     FillParameter(row, "ProfessionID", professionId);
 
                     personProfessionTable.Rows.Add(row);

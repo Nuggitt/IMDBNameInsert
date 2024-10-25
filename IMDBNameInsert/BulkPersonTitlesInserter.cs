@@ -13,11 +13,11 @@ namespace IMDBNameInsert
         public void Insert(List<Person> persons, SqlConnection sqlConn, SqlTransaction sqlTransaction)
         {
             DataTable personTitleTable = new DataTable();
-            personTitleTable.Columns.Add(new DataColumn("Nconst", typeof(string))); // Ensure type matches your DB
-            personTitleTable.Columns.Add(new DataColumn("Tconst", typeof(string))); // Ensure type matches your DB
+            personTitleTable.Columns.Add(new DataColumn("Nconst", typeof(string))); 
+            personTitleTable.Columns.Add(new DataColumn("Tconst", typeof(string))); 
 
-            int batchSize = 10000; // Number of records to insert at a time
-            int totalRecords = 0; // Track total records processed
+            int batchSize = 10000; 
+            int totalRecords = 0; 
 
             for (int i = 0; i < persons.Count; i++)
             {
@@ -31,16 +31,16 @@ namespace IMDBNameInsert
 
                 totalRecords += personTitleTable.Rows.Count;
 
-                // Perform bulk copy if batch size is reached or if it's the last iteration
+                
                 if (personTitleTable.Rows.Count >= batchSize || i == persons.Count - 1)
                 {
                     using (SqlBulkCopy bulkCopy = new SqlBulkCopy(sqlConn, SqlBulkCopyOptions.Default, sqlTransaction))
                     {
                         bulkCopy.DestinationTableName = "dbo.PersonTitles";
-                        bulkCopy.BulkCopyTimeout = 600; // Set to 10 minutes
+                        bulkCopy.BulkCopyTimeout = 600; 
                         bulkCopy.WriteToServer(personTitleTable);
                     }
-                    personTitleTable.Clear(); // Clear the DataTable for the next batch
+                    personTitleTable.Clear(); 
                     Console.WriteLine($"Inserted {totalRecords} records so far.");
                 }
             }
